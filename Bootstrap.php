@@ -2,8 +2,21 @@
 
 require 'vendor/autoload.php';
 
-$whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
+error_reporting(E_ALL);
 
-echo 'hello';
+$debug = true; // todo: set depending on environment
+
+$woops = new \Whoops\Run;
+if ($debug) {
+    $woops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+} else {
+    $woops->pushHandler(function($e){
+        echo 'Friendly error page';
+    });
+    $woops->pushHandler(function($e){
+        // send email to dev with error
+    });
+}
+$woops->register();
+
+throw new Exception;
