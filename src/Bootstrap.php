@@ -30,7 +30,7 @@ $injector = new Auryn\Provider;
 require 'Dependencies.php';
 
 /**
- * Set up the router
+ * Set up the router and dispatch
  */
 require 'Routes.php';
 
