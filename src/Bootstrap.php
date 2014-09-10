@@ -23,26 +23,20 @@ if ($environment === 'development') {
 $woops->register();
 
 /**
- * Set up the http component
+ * Set up the dependency injector
  */
-$cookieBuilder = new Http\CookieBuilder;
-$cookieBuilder->setDefaultSecure($environment === 'production');
+$injector = new Auryn\Provider;
 
-$request = new Http\HttpRequest($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
-$response = new Http\HttpResponse;
+require 'Dependencies.php';
 
 /**
- * Set up the routing
+ * Set up the router
  */
 require 'Routes.php';
 
+$request = $injector->make('Http\HttpRequest');
 $dispatcher = FastRoute\simpleDispatcher($routes);
-
-$routeInfo = $dispatcher->dispatch(
-    $request->getMethod(), 
-    $request->getUri()
-);
-
+$routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getUri());
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         $response->setStatusCode(404);
@@ -64,14 +58,17 @@ switch ($routeInfo[0]) {
             throw new Exception('Route handler must have a class defined');
         }
 
-        $class = 'Example\\' . $handler['class'];
-        (new $class)->$handler['action']($vars);
+        $class = $injector->make('Example\\' . $handler['class']);
+        $class->$handler['action']($vars);
+
         break;
 }
 
 /**
  * Send the http response
  */
+$response = $injector->make('Http\HttpResponse');
+
 foreach ($response->getHeaders() as $header) {
     header($header);
 }
