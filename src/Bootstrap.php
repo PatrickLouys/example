@@ -35,6 +35,8 @@ require 'Dependencies.php';
 require 'Routes.php';
 
 $request = $injector->make('Http\HttpRequest');
+$response = $injector->make('Http\HttpResponse');
+
 $dispatcher = FastRoute\simpleDispatcher($routes);
 $routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getUri());
 switch ($routeInfo[0]) {
@@ -67,8 +69,6 @@ switch ($routeInfo[0]) {
 /**
  * Send the http response
  */
-$response = $injector->make('Http\HttpResponse');
-
 foreach ($response->getHeaders() as $header) {
     header($header);
 }
