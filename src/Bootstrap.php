@@ -42,7 +42,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 
 $routeInfo = $dispatcher->dispatch(
     $request->getMethod(), 
-    $_SERVER['REQUEST_URI']
+    $request->getUri()
 );
 
 switch ($routeInfo[0]) {

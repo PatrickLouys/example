@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "82af9ea08d5faab2420a64499eea659a",
+    "hash": "ed627cab2f78d8b3dc7b1c2618c0e66e",
     "packages": [
         {
             "name": "filp/whoops",
@@ -109,16 +109,16 @@
         },
         {
             "name": "patricklouys/http",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PatrickLouys/http.git",
-                "reference": "d5b0ee75da3cc805b30524dcb1719ec92c9edc2e"
+                "reference": "ffe65db5f5a33b9a999dbb35b5a97c7514d8a085"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PatrickLouys/http/zipball/d5b0ee75da3cc805b30524dcb1719ec92c9edc2e",
-                "reference": "d5b0ee75da3cc805b30524dcb1719ec92c9edc2e",
+                "url": "https://api.github.com/repos/PatrickLouys/http/zipball/ffe65db5f5a33b9a999dbb35b5a97c7514d8a085",
+                "reference": "ffe65db5f5a33b9a999dbb35b5a97c7514d8a085",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "request",
                 "response"
             ],
-            "time": "2014-08-19 19:44:27"
+            "time": "2014-09-10 18:16:43"
         }
     ],
     "packages-dev": [
@@ -789,6 +789,7 @@
     "stability-flags": [
 
     ],
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.5.0"
     },
