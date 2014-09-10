@@ -34,12 +34,9 @@ $response = new Http\HttpResponse;
 /**
  * Set up the routing
  */
-$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/test', [
-        'class' => 'Test\Handler',
-        'action' => 'helloWorld',
-    ]);
-});
+require 'Routes.php';
+
+$dispatcher = FastRoute\simpleDispatcher($routes);
 
 $routeInfo = $dispatcher->dispatch(
     $request->getMethod(), 
