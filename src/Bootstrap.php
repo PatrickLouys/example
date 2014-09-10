@@ -35,9 +35,10 @@ $response = new Http\HttpResponse;
  * Set up the routing
  */
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/test', function(){
-        echo 'hello world';
-    });
+    $r->addRoute('GET', '/test', [
+        'class' => 'Test\Handler',
+        'action' => 'helloWorld',
+    ]);
 });
 
 $routeInfo = $dispatcher->dispatch(
@@ -57,7 +58,17 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
-        $handler($vars);
+
+        if (!array_key_exists('class', $handler)) {
+            throw new Exception('Route handler must have a class defined');
+        }
+
+        if (!array_key_exists('action', $handler)) {
+            throw new Exception('Route handler must have a class defined');
+        }
+
+        $class = 'Example\\' . $handler['class'];
+        (new $class)->$handler['action']($vars);
         break;
 }
 
