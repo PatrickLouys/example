@@ -1,4 +1,5 @@
 <?php
+$injector = new Auryn\Provider;
 
 $injector->share('Http\CookieBuilder');
 $injector->delegate('Http\CookieBuilder', function($environment){

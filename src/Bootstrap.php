@@ -1,5 +1,10 @@
 <?php
 
+namespace Example;
+
+use FastRoute;
+use Http;
+
 require '../vendor/autoload.php';
 
 error_reporting(E_ALL);
@@ -22,22 +27,19 @@ if ($environment === 'development') {
 }
 $woops->register();
 
-/**
- * Set up the dependency injector
- */
-$injector = new Auryn\Provider;
-
 require 'Dependencies.php';
 
 /**
  * Set up the router and dispatch
  */
-require 'Routes.php';
-
 $request = $injector->make('Http\HttpRequest');
 $response = $injector->make('Http\HttpResponse');
 
-$dispatcher = FastRoute\simpleDispatcher($routes);
+$dispatcher = FastRoute\simpleDispatcher([
+    new RouteCollection,
+    'addRoutes',
+]);
+
 $routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getUri());
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
@@ -53,11 +55,11 @@ switch ($routeInfo[0]) {
         $vars = $routeInfo[2];
 
         if (!array_key_exists('class', $handler)) {
-            throw new Exception('Route handler must have a class defined');
+            throw new \Exception('Route handler must have a class defined');
         }
 
         if (!array_key_exists('action', $handler)) {
-            throw new Exception('Route handler must have am action defined');
+            throw new \Exception('Route handler must have am action defined');
         }
 
         $class = $injector->make('Example\\' . $handler['class']);
