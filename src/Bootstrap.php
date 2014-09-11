@@ -4,6 +4,7 @@ namespace Example;
 
 use FastRoute;
 use Http;
+use Auryn;
 
 require '../vendor/autoload.php';
 
@@ -27,11 +28,14 @@ if ($environment === 'development') {
 }
 $woops->register();
 
-require 'Dependencies.php';
-
 /**
  * Set up the router and dispatch
  */
+$injector = new Auryn\Provider;
+
+$dependencyCollection = new DependencyCollection($injector);
+$dependencyCollection->addDependencies();
+
 $request = $injector->make('Http\HttpRequest');
 $response = $injector->make('Http\HttpResponse');
 
