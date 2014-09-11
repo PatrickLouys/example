@@ -57,7 +57,7 @@ switch ($routeInfo[0]) {
         }
 
         if (!array_key_exists('action', $handler)) {
-            throw new Exception('Route handler must have a class defined');
+            throw new Exception('Route handler must have am action defined');
         }
 
         $class = $injector->make('Example\\' . $handler['class']);
