@@ -2,79 +2,60 @@
 
 namespace Example;
 
-use FastRoute;
-use Http;
-use Auryn;
-
 require '../vendor/autoload.php';
 
 error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$environment = 'development'; // todo: detect environment
+$environment = 'development';
 
 /**
- * Register the error handler
- */
+* Register the error handler
+*/
 $woops = new \Whoops\Run;
-if ($environment === 'development') {
+if ($environment !== 'production') {
     $woops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 } else {
     $woops->pushHandler(function($e){
-        echo 'Friendly error page';
-    });
-    $woops->pushHandler(function($e){
-        // send email to dev with error
+        echo 'Friendly error page and send an email to the developer';
     });
 }
 $woops->register();
 
-/**
- * Set up the router and dispatch
- */
-$injector = new Auryn\Provider;
-
-$dependencyCollection = new DependencyCollection($injector);
-$dependencyCollection->addDependencies();
+$injector = include('Dependencies.php');
 
 $request = $injector->make('Http\HttpRequest');
 $response = $injector->make('Http\HttpResponse');
 
-$dispatcher = FastRoute\simpleDispatcher([
-    new RouteCollection,
-    'addRoutes',
-]);
+$routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
+    $routes = include('Routes.php');
+    foreach ($routes as $route) {
+        $r->addRoute($route[0], $route[1], $route[2]);
+    }
+};
 
-$routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getUri());
+$dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
+
+$routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getPath());
 switch ($routeInfo[0]) {
-    case FastRoute\Dispatcher::NOT_FOUND:
-        $response->setStatusCode(404);
+    case \FastRoute\Dispatcher::NOT_FOUND:
         $response->setContent('404 - Page not found');
+        $response->setStatusCode(404);
         break;
-    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        $response->setStatusCode(405);
+    case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $response->setContent('405 - Method not allowed');
+        $response->setStatusCode(405);
         break;
-    case FastRoute\Dispatcher::FOUND:
-        $handler = $routeInfo[1];
+    case \FastRoute\Dispatcher::FOUND:
+        $className = $routeInfo[1][0];
+        $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
-
-        if (!array_key_exists('class', $handler)) {
-            throw new \Exception('Route handler must have a class defined');
-        }
-
-        if (!array_key_exists('action', $handler)) {
-            throw new \Exception('Route handler must have an action defined');
-        }
-
-        $class = $injector->make('Example\\' . $handler['class']);
-        $class->$handler['action']($vars);
-
+        
+        $class = $injector->make($className);
+        $class->$method($vars);
         break;
 }
 
-/**
- * Send the http response
- */
 foreach ($response->getHeaders() as $header) {
     header($header);
 }

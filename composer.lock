@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a70499b0a833dadd62ef1dea777e0754",
+    "hash": "2a8b37aa4025cbf7aa20e2318d12948d",
     "packages": [
         {
             "name": "filp/whoops",
@@ -109,16 +109,16 @@
         },
         {
             "name": "patricklouys/http",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PatrickLouys/http.git",
-                "reference": "ffe65db5f5a33b9a999dbb35b5a97c7514d8a085"
+                "reference": "cbe9bcd7b3dab5ad59bbbbbf93ac0021f59c584d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PatrickLouys/http/zipball/ffe65db5f5a33b9a999dbb35b5a97c7514d8a085",
-                "reference": "ffe65db5f5a33b9a999dbb35b5a97c7514d8a085",
+                "url": "https://api.github.com/repos/PatrickLouys/http/zipball/cbe9bcd7b3dab5ad59bbbbbf93ac0021f59c584d",
+                "reference": "cbe9bcd7b3dab5ad59bbbbbf93ac0021f59c584d",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "request",
                 "response"
             ],
-            "time": "2014-09-10 18:16:43"
+            "time": "2014-09-17 20:42:24"
         },
         {
             "name": "rdlowrey/auryn",
