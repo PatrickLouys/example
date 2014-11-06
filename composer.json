@@ -15,7 +15,8 @@
         "patricklouys/http": "1.*",
         "filp/whoops": "1.1.*",
         "nikic/fast-route": "0.2.*",
-        "rdlowrey/auryn": "0.14.*"
+        "rdlowrey/auryn": "0.14.*",
+        "mustache/mustache": "2.7.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
