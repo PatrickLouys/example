@@ -2,7 +2,7 @@
 
 namespace Example\Template;
 
-interface Renderable
+interface Engine
 {
     public function render($template, $data = []);
 }

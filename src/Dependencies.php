@@ -22,4 +22,13 @@ $injector->define('Http\HttpRequest', [
 $injector->alias('Http\Request', 'Http\HttpRequest');
 $injector->share('Http\HttpResponse');
 
+$injector->define('Mustache_Engine', [
+    ':options' => [
+        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__DIR__).'/templates'),
+    ],
+]);
+
+$injector->alias('Example\Template\Engine', 'Example\Template\MustacheEngineAdapter');
+
+
 return $injector;

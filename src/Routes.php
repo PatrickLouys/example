@@ -2,7 +2,7 @@
 
 return [
     ['GET', '/hello-world', [
-        'Example\HelloWorld\HelloWorldController', 
+        'Example\HelloWorld\HelloWorldPresenter', 
         'hello',
     ]],
 ];
