@@ -24,7 +24,7 @@ $injector->share('Http\HttpResponse');
 
 $injector->define('Mustache_Engine', [
     ':options' => [
-        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__DIR__).'/templates'),
+        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__DIR__) . '/templates'),
     ],
 ]);
 
