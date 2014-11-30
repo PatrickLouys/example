@@ -27,7 +27,7 @@ class Homepage
         $data = [
             'name' => $this->request->getParameter('name', 'stranger'),
         ];
-        $content = $this->templateEngine->render('Homepage', $data);
-        $this->response->setContent($content);
+        $html = $this->templateEngine->render('Homepage', $data);
+        $this->response->setContent($html);
     }
 }
