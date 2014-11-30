@@ -1,8 +1,5 @@
 <?php
 
 return [
-    ['GET', '/hello-world', [
-        'Example\HelloWorld\HelloWorldPresenter', 
-        'hello',
-    ]],
+    ['GET', '/', ['Example\Controllers\Homepage', 'show']],
 ];

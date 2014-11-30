@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\HelloWorld;
+namespace Example\Controllers;
 
 use Http\Request;
 use Http\Response;
 use Example\Template\Engine as TemplateEngine;
 
-class HelloWorldPresenter
+class Homepage
 {
     private $request;
     private $response;
@@ -22,12 +22,12 @@ class HelloWorldPresenter
         $this->templateEngine = $templateEngine;
     }
 
-    public function hello()
+    public function show()
     {
         $data = [
             'name' => $this->request->getParameter('name', 'stranger'),
         ];
-        $content = $this->templateEngine->render('HelloWorld/Hello', $data);
+        $content = $this->templateEngine->render('Homepage', $data);
         $this->response->setContent($content);
     }
 }
