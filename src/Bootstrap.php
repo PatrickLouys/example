@@ -57,7 +57,6 @@ switch ($routeInfo[0]) {
 }
 
 foreach ($response->getHeaders() as $header) {
-    header($header);
+    header($header, false);
 }
-
 echo $response->getContent();

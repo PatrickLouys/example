@@ -2,13 +2,6 @@
 
 $injector = new \Auryn\Provider;
 
-$injector->share('Http\CookieBuilder');
-$injector->delegate('Http\CookieBuilder', function($environment){
-    $cookieBuilder = new \Http\CookieBuilder;
-    $cookieBuilder->setDefaultSecure($environment === 'production');
-    return $cookieBuilder;
-});
-
 $injector->alias('Http\Response', 'Http\HttpResponse');
 $injector->share('Http\HttpRequest');
 $injector->define('Http\HttpRequest', [
