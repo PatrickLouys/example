@@ -17,11 +17,19 @@ $injector->share('Http\HttpResponse');
 
 $injector->define('Mustache_Engine', [
     ':options' => [
-        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__DIR__) . '/templates'),
+        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__DIR__) . '/templates', [
+            'extension' => '.html',
+        ]),
     ],
 ]);
 
-$injector->alias('Example\Template\Renderer', 'Example\Template\MustacheRenderer');
+$injector->delegate('Twig_Environment', function() use ($injector) {
+    $loader = new Twig_Loader_Filesystem(dirname(__DIR__) . '/templates');
+    $twig = new Twig_Environment($loader);
+    return $twig;
+});
+
+$injector->alias('Example\Template\Renderer', 'Example\Template\TwigRenderer');
 
 $injector->define('Example\Page\FilePageReader', [
     ':pageFolder' => __DIR__ . '/../pages',
