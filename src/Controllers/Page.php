@@ -3,23 +3,23 @@
 namespace Example\Controllers;
 
 use Http\Response;
-use Example\Template\Engine as TemplateEngine;
+use Example\Template\Renderer;
 use Example\Page\PageReader;
 use Example\Page\InvalidPageException;
 
 class Page
 {
     private $response;
-    private $templateEngine;
+    private $renderer;
     private $pageReader;
 
     public function __construct(
         Response $response,
-        TemplateEngine $templateEngine,
+        Renderer $renderer,
         PageReader $pageReader
     ) {
         $this->response = $response;
-        $this->templateEngine = $templateEngine;
+        $this->renderer = $renderer;
         $this->pageReader = $pageReader;
     }
 
@@ -34,7 +34,7 @@ class Page
             return $this->response->setContent('404 - Page not found');
         }
         
-        $html = $this->templateEngine->render('Page', $data);
+        $html = $this->renderer->render('Page', $data);
         $this->response->setContent($html);
     }
 }

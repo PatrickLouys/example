@@ -21,7 +21,7 @@ $injector->define('Mustache_Engine', [
     ],
 ]);
 
-$injector->alias('Example\Template\Engine', 'Example\Template\MustacheEngineAdapter');
+$injector->alias('Example\Template\Renderer', 'Example\Template\MustacheRenderer');
 
 $injector->define('Example\Page\FilePageReader', [
     ':pageFolder' => __DIR__ . '/../pages',

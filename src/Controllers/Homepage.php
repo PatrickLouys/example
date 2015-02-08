@@ -4,22 +4,22 @@ namespace Example\Controllers;
 
 use Http\Request;
 use Http\Response;
-use Example\Template\Engine as TemplateEngine;
+use Example\Template\Renderer;
 
 class Homepage
 {
     private $request;
     private $response;
-    private $templateEngine;
+    private $renderer;
 
     public function __construct(
         Request $request, 
         Response $response,
-        TemplateEngine $templateEngine
+        Renderer $renderer
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->templateEngine = $templateEngine;
+        $this->renderer = $renderer;
     }
 
     public function show()
@@ -28,7 +28,7 @@ class Homepage
             'name' => $this->request->getParameter('name', 'stranger'),
             'menuItems' => ['href' => '/', 'text' => 'Homepage'],
         ];
-        $html = $this->templateEngine->render('Homepage', $data);
+        $html = $this->renderer->render('Homepage', $data);
         $this->response->setContent($html);
     }
 }
