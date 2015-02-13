@@ -30,6 +30,7 @@ $injector->delegate('Twig_Environment', function() use ($injector) {
 });
 
 $injector->alias('Example\Template\Renderer', 'Example\Template\TwigRenderer');
+$injector->alias('Example\Template\FrontendRenderer', 'Example\Template\FrontendTwigRenderer');
 
 $injector->define('Example\Page\FilePageReader', [
     ':pageFolder' => __DIR__ . '/../pages',
