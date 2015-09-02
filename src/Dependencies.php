@@ -39,4 +39,7 @@ $injector->define('Example\Page\FilePageReader', [
 $injector->alias('Example\Page\PageReader', 'Example\Page\FilePageReader');
 $injector->share('Example\Page\FilePageReader');
 
+$injector->alias('Example\Menu\MenuReader', 'Example\Menu\ArrayMenuReader');
+$injector->share('Example\Menu\FileMenuReader');
+
 return $injector;

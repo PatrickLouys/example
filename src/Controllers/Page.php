@@ -28,7 +28,7 @@ class Page
         $slug = $params['slug'];
 
         try {
-            $data['content'] = $this->pageReader->getContentBySlug($slug);
+            $data['content'] = $this->pageReader->readBySlug($slug);
         } catch (InvalidPageException $e) {
             $this->response->setStatusCode(404);
             return $this->response->setContent('404 - Page not found');

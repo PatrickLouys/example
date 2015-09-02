@@ -16,7 +16,7 @@ class FilePageReader implements PageReader
         $this->pageFolder = $pageFolder;
     }
 
-    public function getContentBySlug($slug)
+    public function readBySlug($slug)
     {
         if (!is_string($slug)) {
             throw new InvalidArgumentException('slug must be a string');

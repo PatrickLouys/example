@@ -4,5 +4,5 @@ namespace Example\Page;
 
 interface PageReader
 {
-    public function getContentBySlug($slug);
+    public function readBySlug($slug);
 }
